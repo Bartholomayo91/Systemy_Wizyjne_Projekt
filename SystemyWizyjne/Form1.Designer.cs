@@ -221,18 +221,19 @@
             "Negatyw obrazu - działa",
             "Konwersja do odcieni szarości - działa",
             "Normalizacja histogramu - działa",
-            "Skalowanie",
+            "Skalowanie - działa",
             "Progowanie (binaryzacja)",
             "Filtry",
             "Transformacja pomiędzy przestrzeniami barw",
-            "Obrót",
+            "Obrót - działa",
             "Zmiana jasności - działa",
-            "Detekcja krawędzi",
-            "Segmentacja",
+            "Detekcja krawędzi - działa",
+            "Segmentacja - działa",
             "Szkieletyzacja",
-            "Erozja/dylatacja",
-            "OCR",
-            "Klasyfikator cech"});
+            "Erozja - działa",
+            "Dylatacja - działa",
+            "OCR - działa",
+            "Klasyfikator cech - działa"});
             this.comboBox1.Location = new System.Drawing.Point(131, 27);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(221, 21);

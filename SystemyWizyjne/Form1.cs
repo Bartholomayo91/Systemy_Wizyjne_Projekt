@@ -10,17 +10,23 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Tesseract;
+using Emgu;
+using Emgu.CV.Structure;
+using Emgu.CV;
+using System.IO;
 
 namespace SystemyWizyjne
 {
     public partial class Form1 : Form
     {
-   
+
         private Image zrodlo;
+        Image<Bgr, byte> imgInput;
+        Image<Gray, byte> imgOutput;
 
         public Form1()
         {
-           
+
             InitializeComponent();
             comboBox1_Click(null, null);
 
@@ -36,9 +42,11 @@ namespace SystemyWizyjne
             dlg.Filter = "Obrazy (*.jpg;*.gif;*.png;*.bmp)|*.jpg;*.gif;*.png;*.bmp";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
+                imgInput = new Image<Bgr, byte>(dlg.FileName);//składowe facedetection i 
+                picture.Image = imgInput.Bitmap;//składowe facedetection
+
                 zrodlo = new Bitmap(dlg.OpenFile());
                 picture.Image = new Bitmap(dlg.OpenFile());
-             //   wynik.Image = new Bitmap(dlg.OpenFile());
                 picture.Height = picture.Image.Height;
                 picture.Width = picture.Image.Width;
                 this.ClientSize = new System.Drawing.Size(Math.Max(picture.Width + 32, 300), picture.Height + 80);
@@ -86,12 +94,12 @@ namespace SystemyWizyjne
             return result;
         }
 
-/// <summary>
-/// /////////////////////////////GŁÓWNA FUNKCJA AKCJI DLA POSZCZEGOLNYCH FUNKCJI////////////////////////////////////////
-/// </summary>
-/// <param name="sender"></param>
-/// <param name="e"></param>
-/// 
+        /// <summary>
+        /// /////////////////////////////GŁÓWNA FUNKCJA AKCJI DLA POSZCZEGOLNYCH FUNKCJI////////////////////////////////////////
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
         private void comboBox1_Click(object sender, EventArgs e)
         {
             string selectedEmployee = (string)comboBox1.SelectedItem;
@@ -133,8 +141,8 @@ namespace SystemyWizyjne
                     System.Runtime.InteropServices.Marshal.Copy(pixelValues, 0, bmpData.Scan0, pixelValues.Length);
                     bitmap.UnlockBits(bmpData);
                     picture.Refresh();
-                break;
-///////////////////////////////////////////////////////jasnosc////////////////////////
+                    break;
+                ///////////////////////////////////////////////////////jasnosc////////////////////////
                 case "Zmiana jasności - działa":
 
                     this.chart.Visible = false;
@@ -148,12 +156,12 @@ namespace SystemyWizyjne
 
                     this.label1.Visible = true;
                     this.suwak.Visible = true;
-                   // this.wykres.Visible = true;
-                    
-                   // wykres.Series[0].Points.Clear();
+                    // this.wykres.Visible = true;
+
+                    // wykres.Series[0].Points.Clear();
                     byte[] LUT = new byte[256];
                     int b = suwak.Value;
-                   // wykres.Titles[0].Text = "Tablica LUT, b = " + b;
+                    // wykres.Titles[0].Text = "Tablica LUT, b = " + b;
                     for (int i = 0; i < 256; i++)
                     {
                         if ((b + i) > 255)
@@ -168,7 +176,7 @@ namespace SystemyWizyjne
                         {
                             LUT[i] = (byte)(b + i);
                         }
-                      //  wykres.Series[0].Points.Add(new DataPoint(i, LUT[i]));
+                        //  wykres.Series[0].Points.Add(new DataPoint(i, LUT[i]));
                     }
 
                     //Nie rob nic wiecej jezeli obraz jest jeszcze niewczytany
@@ -196,9 +204,9 @@ namespace SystemyWizyjne
                     //Ustaw wartosc wszystkich punktow obrazu
                     System.Runtime.InteropServices.Marshal.Copy(pixelValuesJo, 0, bmpDataJo.Scan0, pixelValuesJo.Length);
                     bitmapJo.UnlockBits(bmpDataJo);
-                    
+
                     break;
-//////////////////////////////////////odcienie szarosci/////////////////////////////////////////////////
+                //////////////////////////////////////odcienie szarosci/////////////////////////////////////////////////
                 case "Konwersja do odcieni szarości - działa":
 
                     this.chart.Visible = false;
@@ -239,12 +247,12 @@ namespace SystemyWizyjne
                     bitmapKs.UnlockBits(bmpDataKs);
                     picture.Refresh();
 
-                break;
+                    break;
                 ///////////////////////////////////normalizacja histogramu//////////////////////
                 case "Normalizacja histogramu - działa":
 
                     this.picture.Location = new System.Drawing.Point(24, 140);
-                    
+
                     int[] red = null;
                     int[] green = null;
                     int[] blue = null;
@@ -322,8 +330,8 @@ namespace SystemyWizyjne
                     }
                     chart.Invalidate();
                     break;
-                    //////////////////////////////////////////Skalowanie/////////////////////////////////
-                    case "Skalowanie":
+                //////////////////////////////////////////Skalowanie/////////////////////////////////
+                case "Skalowanie - działa":
                     this.chart.Visible = false;
                     this.process.Visible = false;
 
@@ -372,22 +380,119 @@ namespace SystemyWizyjne
                     }
 
                     break;
+                //////////////////////////////////////////////Obrót///////////////////////////////////
+                case "Obrót - działa":
+                    {
+                        Bitmap bitmapRotate = (Bitmap)picture.Image;
+                        if (bitmapRotate != null)
+                        {
+                            bitmapRotate.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                            picture.Image = bitmapRotate;
+                        }
+                    }
+                    break;
+                ///////////////////////////////////////Detekcja krawędzi///////////////////////////////
+                case "Detekcja krawędzi - działa":
+                    {
+                        Image<Gray, byte> imgOutput = imgInput.Convert<Gray, byte>().ThresholdBinary(new Gray(100), new Gray(255));
+                        Emgu.CV.Util.VectorOfVectorOfPoint contours = new Emgu.CV.Util.VectorOfVectorOfPoint();
+                        Mat hier = new Mat();
 
+                        Image<Gray, byte> imgout = new Image<Gray, byte>(imgInput.Width, imgInput.Height, new Gray(0));
+
+                        CvInvoke.FindContours(imgOutput, contours, hier, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
+                        CvInvoke.DrawContours(imgout, contours, -1, new MCvScalar(255, 0, 0));
+
+                        picture.Image = imgout.Bitmap;
+                    }
+                    break;
+                /////////////////////////////////////////// Segmentacja/////////////////////////////////////////
+                case "Segmentacja - działa":
+                    {
+                        try
+                        {
+                            imgOutput = imgInput.Convert<Gray, byte>().InRange(new Gray(20), new Gray(200)).Canny(10, 50);
+
+                            picture.Image = imgOutput.Bitmap;
+                            picture.Invalidate();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error " + ex.Message);
+                        }
+                    }
+                    break;
+                ///////////////////////////////////////////Erozja////////////////////////////////////
+                case "Erozja - działa":
+                    {
+                        if (imgInput==null)
+                        {
+                            return;
+                        }
+
+                        picture.Image = imgInput.Convert<Gray, byte>().ThresholdBinary(new Gray(120), new Gray(255)).Erode(1).Bitmap;
+                    }break;
+                ///////////////////////////////////////////Dylatacja////////////////////////////////////
+                case "Dylatacja - działa":
+                    {
+                        if (imgInput == null)
+                        {
+                            return;
+                        }
+
+                        picture.Image = imgInput.Convert<Gray, byte>().ThresholdBinary(new Gray(120), new Gray(255)).Dilate(1).Bitmap;
+                    }
+                    break;
                 /////////////////////////////////////////OCR - Tesseract/////////////////////////////
-                case "OCR":
+                case "OCR - działa":
 
                     Bitmap img = (Bitmap)zrodlo.Clone();
                     TesseractEngine engine = new TesseractEngine("./tessdata", "eng", EngineMode.Default);
                     Page page = engine.Process(img, PageSegMode.Auto);
                     string result = page.GetText();
                     Console.WriteLine(result);
-                break;
-                    
+                    break;
+                /////////////////////////////////////////////Klasyfikator cech - DetectFaceHaar - ///////////////////////
+                case "Klasyfikator cech - działa":
+                    {
+                        try
+                        {
+                            string facePath = Path.GetFullPath(@"../../data/haarcascade_frontalface_default.xml");
+                            string eyePath = Path.GetFullPath(@"../../data/haarcascade_eye.xml");
+
+
+                            CascadeClassifier classifierFace = new CascadeClassifier(facePath);
+                            CascadeClassifier classifierEye = new CascadeClassifier(eyePath);
+
+                            var imgGray = imgInput.Convert<Gray, byte>().Clone();
+                            Rectangle[] faces = classifierFace.DetectMultiScale(imgGray, 1.1, 4);
+                            foreach (var face in faces)
+                            {
+                                imgInput.Draw(face, new Bgr(0, 0, 255), 2);
+
+                                imgGray.ROI = face;
+                                Rectangle[] eyes = classifierEye.DetectMultiScale(imgGray, 1.1, 4);
+                                foreach (var eye in eyes)
+                                {
+                                    var ey = eye;
+                                    ey.X += face.X;
+                                    ey.Y += face.Y;
+                                    imgInput.Draw(ey, new Bgr(0, 255, 0), 2);
+                                }
+                            }
+                            picture.Image = imgInput.Bitmap;
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception(ex.Message);
+                        }
+                    }
+                    break;
             }
-        
-           
+
         }
 
-       
+
     }
-}
+  }
+
