@@ -23,6 +23,9 @@ namespace SystemyWizyjne
         private Image zrodlo;
         Image<Bgr, byte> imgInput;
         Image<Gray, byte> imgOutput;
+        Image<Gray, byte> imgGray;
+        Image<Gray, byte> imgBinarize;
+        String fileName;
 
         public Form1()
         {
@@ -42,8 +45,10 @@ namespace SystemyWizyjne
             dlg.Filter = "Obrazy (*.jpg;*.gif;*.png;*.bmp)|*.jpg;*.gif;*.png;*.bmp";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
+                fileName = dlg.FileName;
                 imgInput = new Image<Bgr, byte>(dlg.FileName);//składowe facedetection i 
                 picture.Image = imgInput.Bitmap;//składowe facedetection
+
 
                 zrodlo = new Bitmap(dlg.OpenFile());
                 picture.Image = new Bitmap(dlg.OpenFile());
@@ -442,6 +447,27 @@ namespace SystemyWizyjne
 
                         picture.Image = imgInput.Convert<Gray, byte>().ThresholdBinary(new Gray(120), new Gray(255)).Dilate(1).Bitmap;
                     }
+                    break;
+                //////////////////////////////////////////Progowanie/////////////////////////////////
+                case "Progowanie (binaryzacja)":
+                    this.chart.Visible = false;
+                    this.process.Visible = false;
+
+                    this.label1.Visible = true;
+
+
+                    //Nie rob nic wiecej jezeli obraz jest jeszcze niewczytany
+                    if (picture != null)
+                    {
+
+                        imgInput = new Image<Bgr, byte>(fileName);
+                        imgGray = imgInput.Convert<Gray, byte>();
+                        //binaryzacja
+                        imgBinarize = new Image<Gray, byte>(imgGray.Width, imgGray.Height, new Gray(0));
+                        CvInvoke.Threshold(imgGray, imgBinarize, 70, 255, Emgu.CV.CvEnum.ThresholdType.Binary);
+                        picture.Image = imgBinarize.Bitmap;
+                    }
+
                     break;
                 /////////////////////////////////////////OCR - Tesseract/////////////////////////////
                 case "OCR - działa":
