@@ -107,3 +107,4 @@ D:\STUDIA - Inf PO\sem VI\Systemy wizyjne\Projekt\Systemy_Wizyjne_Project\System
 D:\STUDIA - Inf PO\sem VI\Systemy wizyjne\Projekt\Systemy_Wizyjne_Project\Systemy_Wizyjne_Project\SystemyWizyjne\bin\Debug\tr\ZedGraph.resources.dll
 D:\STUDIA - Inf PO\sem VI\Systemy wizyjne\Projekt\Systemy_Wizyjne_Project\Systemy_Wizyjne_Project\SystemyWizyjne\bin\Debug\zh-cn\ZedGraph.resources.dll
 D:\STUDIA - Inf PO\sem VI\Systemy wizyjne\Projekt\Systemy_Wizyjne_Project\Systemy_Wizyjne_Project\SystemyWizyjne\bin\Debug\zh-tw\ZedGraph.resources.dll
+D:\STUDIA - Inf PO\sem VI\Systemy wizyjne\Projekt\Systemy_Wizyjne_Project\Systemy_Wizyjne_Project\SystemyWizyjne\obj\Debug\SystemyWizyjne.Obraz.resources
