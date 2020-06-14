@@ -419,8 +419,18 @@ namespace SystemyWizyjne
                         {
                             imgOutput = imgInput.Convert<Gray, byte>().InRange(new Gray(20), new Gray(200)).Canny(10, 50);
 
-                            picture.Image = imgOutput.Bitmap;
+                           // picture.Image = imgOutput.Bitmap;
                             picture.Invalidate();
+
+                            Obraz wynikowy = new Obraz();
+                            wynikowy.richTextBox1.Visible = false;
+                            wynikowy.obrazWynikowy.Visible = true;
+                            wynikowy.obrazWynikowy.Image = imgOutput.Bitmap;
+                            wynikowy.Height = picture.Image.Height;
+                            wynikowy.Width = picture.Image.Width;
+                            wynikowy.obrazWynikowy.Height = picture.Image.Height;
+                            wynikowy.obrazWynikowy.Width = picture.Image.Width;
+                            wynikowy.Show();
                         }
                         catch (Exception ex)
                         {
@@ -435,8 +445,15 @@ namespace SystemyWizyjne
                         {
                             return;
                         }
-
-                        picture.Image = imgInput.Convert<Gray, byte>().ThresholdBinary(new Gray(120), new Gray(255)).Erode(1).Bitmap;
+                        Obraz wynikowy = new Obraz();
+                        wynikowy.richTextBox1.Visible = false;
+                        wynikowy.obrazWynikowy.Visible = true;
+                        wynikowy.obrazWynikowy.Image = imgInput.Convert<Gray, byte>().ThresholdBinary(new Gray(120), new Gray(255)).Erode(1).Bitmap;
+                        wynikowy.Height = picture.Image.Height;
+                        wynikowy.Width = picture.Image.Width;
+                        wynikowy.obrazWynikowy.Height = picture.Image.Height;
+                        wynikowy.obrazWynikowy.Width = picture.Image.Width;
+                        wynikowy.Show();
                     }break;
                 ///////////////////////////////////////////Dylatacja////////////////////////////////////
                 case "Dylatacja - działa":
@@ -446,7 +463,16 @@ namespace SystemyWizyjne
                             return;
                         }
 
-                        picture.Image = imgInput.Convert<Gray, byte>().ThresholdBinary(new Gray(120), new Gray(255)).Dilate(1).Bitmap;
+
+                        Obraz wynikowy = new Obraz();
+                        wynikowy.richTextBox1.Visible = false;
+                        wynikowy.obrazWynikowy.Visible = true;
+                        wynikowy.obrazWynikowy.Image = imgInput.Convert<Gray, byte>().ThresholdBinary(new Gray(120), new Gray(255)).Dilate(1).Bitmap;
+                        wynikowy.Height = picture.Image.Height;
+                        wynikowy.Width = picture.Image.Width;
+                        wynikowy.obrazWynikowy.Height = picture.Image.Height;
+                        wynikowy.obrazWynikowy.Width = picture.Image.Width;
+                        wynikowy.Show();
                     }
                     break;
                 //////////////////////////////////////////Progowanie/////////////////////////////////
@@ -466,8 +492,17 @@ namespace SystemyWizyjne
                         //binaryzacja
                         imgBinarize = new Image<Gray, byte>(imgGray.Width, imgGray.Height, new Gray(0));
                         CvInvoke.Threshold(imgGray, imgBinarize, 70, 255, Emgu.CV.CvEnum.ThresholdType.Binary);
-                        picture.Image = imgBinarize.Bitmap;
+                       // picture.Image = imgBinarize.Bitmap;
                     }
+                    Obraz wynik = new Obraz();
+                    wynik.richTextBox1.Visible = false;
+                    wynik.obrazWynikowy.Visible = true;
+                    wynik.obrazWynikowy.Image = imgBinarize.Bitmap;
+                    wynik.Height = picture.Image.Height;
+                    wynik.Width = picture.Image.Width;
+                    wynik.obrazWynikowy.Height = picture.Image.Height;
+                    wynik.obrazWynikowy.Width = picture.Image.Width;
+                    wynik.Show();
 
                     break;
                 /////////////////////////////////////////OCR - Tesseract/////////////////////////////
@@ -510,15 +545,15 @@ namespace SystemyWizyjne
                                     imgInput.Draw(ey, new Bgr(0, 255, 0), 2);
                                 }
                             }
-                            Obraz wynik = new Obraz();
-                            wynik.richTextBox1.Visible = false;
-                            wynik.obrazWynikowy.Visible = true;
-                            wynik.obrazWynikowy.Image = imgInput.Bitmap;
-                            wynik.Height = picture.Image.Height;
-                            wynik.Width = picture.Image.Width;
-                            wynik.obrazWynikowy.Height = picture.Image.Height;
-                            wynik.obrazWynikowy.Width = picture.Image.Width;
-                            wynik.Show();
+                            Obraz wynikowy = new Obraz();
+                            wynikowy.richTextBox1.Visible = false;
+                            wynikowy.obrazWynikowy.Visible = true;
+                            wynikowy.obrazWynikowy.Image = imgInput.Bitmap;
+                            wynikowy.Height = picture.Image.Height;
+                            wynikowy.Width = picture.Image.Width;
+                            wynikowy.obrazWynikowy.Height = picture.Image.Height;
+                            wynikowy.obrazWynikowy.Width = picture.Image.Width;
+                            wynikowy.Show();
                         }
                         catch (Exception ex)
                         {
@@ -533,4 +568,3 @@ namespace SystemyWizyjne
 
     }
   }
-
