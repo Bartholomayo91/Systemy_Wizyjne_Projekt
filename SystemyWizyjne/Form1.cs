@@ -20,6 +20,7 @@ namespace SystemyWizyjne
     public partial class Form1 : Form
     {
 
+        private Obraz wynik;
         private Image zrodlo;
         Image<Bgr, byte> imgInput;
         Image<Gray, byte> imgOutput;
@@ -472,11 +473,14 @@ namespace SystemyWizyjne
                 /////////////////////////////////////////OCR - Tesseract/////////////////////////////
                 case "OCR - działa":
 
+                    wynik = new Obraz();
                     Bitmap img = (Bitmap)zrodlo.Clone();
                     TesseractEngine engine = new TesseractEngine("./tessdata", "eng", EngineMode.Default);
                     Page page = engine.Process(img, PageSegMode.Auto);
                     string result = page.GetText();
-                    Console.WriteLine(result);
+                    wynik.richTextBox1.AppendText(result);
+                    wynik.Show();
+                    
                     break;
                 /////////////////////////////////////////////Klasyfikator cech - DetectFaceHaar - ///////////////////////
                 case "Klasyfikator cech - działa":
