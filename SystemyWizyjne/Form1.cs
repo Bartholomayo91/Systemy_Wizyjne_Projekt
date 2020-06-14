@@ -510,7 +510,15 @@ namespace SystemyWizyjne
                                     imgInput.Draw(ey, new Bgr(0, 255, 0), 2);
                                 }
                             }
-                            picture.Image = imgInput.Bitmap;
+                            Obraz wynik = new Obraz();
+                            wynik.richTextBox1.Visible = false;
+                            wynik.obrazWynikowy.Visible = true;
+                            wynik.obrazWynikowy.Image = imgInput.Bitmap;
+                            wynik.Height = picture.Image.Height;
+                            wynik.Width = picture.Image.Width;
+                            wynik.obrazWynikowy.Height = picture.Image.Height;
+                            wynik.obrazWynikowy.Width = picture.Image.Width;
+                            wynik.Show();
                         }
                         catch (Exception ex)
                         {
