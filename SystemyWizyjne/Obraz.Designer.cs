@@ -2,16 +2,10 @@
 {
     partial class Obraz
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
+       
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+           protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
@@ -22,17 +16,13 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
+       
         private void InitializeComponent()
         {
             this.obrazWynikowy = new System.Windows.Forms.PictureBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.obrazWynikowy)).BeginInit();
-            //((System.ComponentModel.ISupportInitialize)(this.richTextBox1)).BeginInit();
-            //((System.ComponentModel.ISupportInitialize)(this.vScrollBar1)).BeginInit();
+           
             this.SuspendLayout();
             // 
             // obrazWynikowy
@@ -63,8 +53,7 @@
             this.Name = "Obraz";
             this.Text = "Wynik";
             ((System.ComponentModel.ISupportInitialize)(this.obrazWynikowy)).EndInit();
-           // ((System.ComponentModel.ISupportInitialize)(this.richTextBox1)).EndInit();
-            //((System.ComponentModel.ISupportInitialize)(this.vScrollBar1)).EndInit();
+           
             this.ResumeLayout(false);
 
         }

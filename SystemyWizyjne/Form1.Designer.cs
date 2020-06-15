@@ -2,15 +2,10 @@
 {
     partial class Form1
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
+      
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -41,7 +36,6 @@
             this.suwak2 = new System.Windows.Forms.TrackBar();
             this.wykres = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.picture = new System.Windows.Forms.PictureBox();
-         //   this.wynik = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -51,17 +45,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.suwak2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wykres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
-           // ((System.ComponentModel.ISupportInitialize)(this.wynik)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            //this.label1.Location = new System.Drawing.Point(0, 0);
-            //this.label1.Name = "label1";
-            //this.label1.Size = new System.Drawing.Size(100, 23);
-            //this.label1.TabIndex = 5;
-            //this.label1.Visible = false;
             // 
             // suwak
             // 
@@ -88,45 +73,6 @@
             this.suwak2.TickFrequency = 1;
             this.suwak2.Visible = false;
             this.suwak2.ValueChanged += new System.EventHandler(this.comboBox1_Click);
-            // 
-            // wykres
-            // 
-            //chartArea5.AxisX.IsLabelAutoFit = false;
-            //chartArea5.AxisX.LabelStyle.Interval = 50D;
-            //chartArea5.AxisX.LabelStyle.IntervalOffset = 0D;
-            //chartArea5.AxisX.MajorGrid.Interval = 50D;
-            //chartArea5.AxisX.MajorTickMark.Interval = 50D;
-            //chartArea5.AxisX.Maximum = 256D;
-            //chartArea5.AxisX.Minimum = 0D;
-            //chartArea5.AxisX.ScaleView.Zoomable = false;
-            //chartArea5.AxisY.IsLabelAutoFit = false;
-            //chartArea5.AxisY.LabelStyle.Interval = 50D;
-            //chartArea5.AxisY.LabelStyle.IntervalOffset = 0D;
-            //chartArea5.AxisY.MajorGrid.Interval = 50D;
-            //chartArea5.AxisY.MajorTickMark.Interval = 50D;
-            //chartArea5.AxisY.Maximum = 256D;
-            //chartArea5.AxisY.Minimum = 0D;
-            //chartArea5.AxisY.ScaleView.Zoomable = false;
-            //chartArea5.Name = "ChartArea1";
-            //this.wykres.ChartAreas.Add(chartArea5);
-            //legend3.Enabled = false;
-            //legend3.Name = "Legend1";
-            //this.wykres.Legends.Add(legend3);
-            //this.wykres.Location = new System.Drawing.Point(150, 60);
-            //this.wykres.Name = "wykres";
-            //series9.ChartArea = "ChartArea1";
-            //series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            //series9.Legend = "Legend1";
-            //series9.Name = "wartosciLUT";
-            //this.wykres.Series.Add(series9);
-            //this.wykres.Size = new System.Drawing.Size(232, 198);
-            //this.wykres.TabIndex = 4;
-            //this.wykres.Text = "chart1";
-            //title3.Name = "Tablica LUT";
-            //title3.Text = "Tablica LUT";
-            //title3.ToolTip = "Tablica LUT";
-            //this.wykres.Titles.Add(title3);
-            //this.wykres.Visible = false;
             ////////////////////////////////////////////elemety histogramu///////////////////////////////
             ///// 
             // chart
@@ -181,16 +127,6 @@
 
 
 
-            ////// 
-            ////// wynik
-            ////// 
-            //this.wynik.Location = new System.Drawing.Point(24, 83);
-            //this.wynik.Name = "wynik";
-            //this.wynik.Size = new System.Drawing.Size(500, 500);
-            //this.wynik.TabIndex = 0;
-            //this.wynik.TabStop = false;
-
-
 
             ///////////////////////////Głowny oprzycisk, picture, comboBox i Form//////////////////////////////////////////
             ///// 
@@ -218,22 +154,22 @@
             this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "Negatyw obrazu - działa",
-            "Konwersja do odcieni szarości - działa",
-            "Normalizacja histogramu - działa",
-            "Skalowanie - działa",
+            "Negatyw obrazu",
+            "Konwersja do odcieni szarości",
+            "Normalizacja histogramu",
+            "Skalowanie",
             "Progowanie (binaryzacja)",
             "Filtry",
             "Transformacja pomiędzy przestrzeniami barw",
-            "Obrót - działa",
-            "Zmiana jasności - działa",
-            "Detekcja krawędzi - działa",
-            "Segmentacja - działa",
+            "Obrót",
+            "Zmiana jasności",
+            "Detekcja krawędzi",
+            "Segmentacja",
             "Szkieletyzacja",
-            "Erozja - działa",
-            "Dylatacja - działa",
-            "OCR - działa",
-            "Klasyfikator cech - działa"});
+            "Erozja",
+            "Dylatacja",
+            "OCR",
+            "Klasyfikator cech"});
             this.comboBox1.Location = new System.Drawing.Point(131, 27);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(221, 21);
@@ -287,7 +223,7 @@
         private System.Windows.Forms.TrackBar suwak;
         private System.Windows.Forms.TrackBar suwak2;
         private System.Windows.Forms.DataVisualization.Charting.Chart wykres;
-       // private System.Windows.Forms.PictureBox wynik;
+      
     }
 }
 

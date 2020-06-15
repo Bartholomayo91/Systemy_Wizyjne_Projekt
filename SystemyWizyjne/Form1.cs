@@ -36,9 +36,6 @@ namespace SystemyWizyjne
 
         }
 
-        /// <summary>
-        /// Wczytaj obraz
-        /// </summary>
         private void wczytaj_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
@@ -59,12 +56,7 @@ namespace SystemyWizyjne
             }
             dlg.Dispose();
         }
-        //////////////////////////////Funckja potrzebna do normalizacji histogramu///////////////////////////
-        /// <summary>
-        /// Oblicza tablice LUT dla histogramu podanej składowej
-        /// </summary>
-        /// <param name="values">histogram dla składowej</param>
-        /// <returns>tablica LUT do wyrównania histogramu</returns>
+      
         private int[] calculateLUT(int[] values)
         {
             //poszukaj wartości minimalnej
@@ -100,24 +92,14 @@ namespace SystemyWizyjne
             return result;
         }
 
-        /// <summary>
-        /// /////////////////////////////GŁÓWNA FUNKCJA AKCJI DLA POSZCZEGOLNYCH FUNKCJI////////////////////////////////////////
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// 
+       
         private void comboBox1_Click(object sender, EventArgs e)
         {
             string selectedEmployee = (string)comboBox1.SelectedItem;
             switch (selectedEmployee)
             {
-                /////////////////////////////////negatyw//////////////////////////////////////////
-                /// <summary>
-                /// Efekt negatywu
-                /// </summary>
-                /// <param name="sender"></param>
-                /// <param name="e"></param>
-                case "Negatyw obrazu - działa":
+               
+                case "Negatyw obrazu":
 
                     this.chart.Visible = false;
                     this.process.Visible = false;
@@ -159,25 +141,19 @@ namespace SystemyWizyjne
                     //picture.Refresh();
                     break;
                 ///////////////////////////////////////////////////////jasnosc////////////////////////
-                case "Zmiana jasności - działa":
+                case "Zmiana jasności":
 
                     this.chart.Visible = false;
                     this.process.Visible = false;
-                    /// <summary>
-                    /// Zmiana jasnosci obrazu
-                    /// </summary>
-                    /// <param name="sender"></param>
-                    /// <param name="e"></param>
+                   
                     //Przygotuj tablice LUT i pokaz ja na wykresie
 
                     this.label1.Visible = true;
                     this.suwak.Visible = true;
-                    // this.wykres.Visible = true;
-
-                    // wykres.Series[0].Points.Clear();
+                  
                     byte[] LUT = new byte[256];
                     int b = suwak.Value;
-                    // wykres.Titles[0].Text = "Tablica LUT, b = " + b;
+                    
                     for (int i = 0; i < 256; i++)
                     {
                         if ((b + i) > 255)
@@ -192,7 +168,7 @@ namespace SystemyWizyjne
                         {
                             LUT[i] = (byte)(b + i);
                         }
-                        //  wykres.Series[0].Points.Add(new DataPoint(i, LUT[i]));
+                       
                     }
 
                     //Nie rob nic wiecej jezeli obraz jest jeszcze niewczytany
@@ -223,7 +199,7 @@ namespace SystemyWizyjne
 
                     break;
                 //////////////////////////////////////odcienie szarosci/////////////////////////////////////////////////
-                case "Konwersja do odcieni szarości - działa":
+                case "Konwersja do odcieni szarości":
 
                     this.chart.Visible = false;
                     this.process.Visible = false;
@@ -274,7 +250,7 @@ namespace SystemyWizyjne
 
                     break;
                 ///////////////////////////////////normalizacja histogramu//////////////////////
-                case "Normalizacja histogramu - działa":
+                case "Normalizacja histogramu":
 
                     this.picture.Location = new System.Drawing.Point(24, 140);
 
@@ -343,7 +319,7 @@ namespace SystemyWizyjne
                             blue[newPixel.B]++;
                         }
                     }
-                    //picture.Image = newBitmap;
+                    
 
                     obraz.richTextBox1.Visible = false;
                     obraz.obrazWynikowy.Visible = true;
@@ -367,7 +343,7 @@ namespace SystemyWizyjne
                     chart.Invalidate();
                     break;
                 //////////////////////////////////////////Skalowanie/////////////////////////////////
-                case "Skalowanie - działa":
+                case "Skalowanie":
                     this.chart.Visible = false;
                     this.process.Visible = false;
 
@@ -417,7 +393,7 @@ namespace SystemyWizyjne
 
                     break;
                 //////////////////////////////////////////////Obrót///////////////////////////////////
-                case "Obrót - działa":
+                case "Obrót":
                     {
                         Bitmap bitmapRotate = (Bitmap)picture.Image;
                         if (bitmapRotate != null)
@@ -428,7 +404,7 @@ namespace SystemyWizyjne
                     }
                     break;
                 ///////////////////////////////////////Detekcja krawędzi///////////////////////////////
-                case "Detekcja krawędzi - działa":
+                case "Detekcja krawędzi":
                     {
                         Image<Gray, byte> imgOutput = imgInput.Convert<Gray, byte>().ThresholdBinary(new Gray(100), new Gray(255));
                         Emgu.CV.Util.VectorOfVectorOfPoint contours = new Emgu.CV.Util.VectorOfVectorOfPoint();
@@ -439,7 +415,6 @@ namespace SystemyWizyjne
                         CvInvoke.FindContours(imgOutput, contours, hier, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
                         CvInvoke.DrawContours(imgout, contours, -1, new MCvScalar(255, 0, 0));
 
-                       // picture.Image = imgout.Bitmap;
 
                         Obraz wynikowy1 = new Obraz();
                         wynikowy1.richTextBox1.Visible = false;
@@ -453,13 +428,12 @@ namespace SystemyWizyjne
                     }
                     break;
                 /////////////////////////////////////////// Segmentacja/////////////////////////////////////////
-                case "Segmentacja - działa":
+                case "Segmentacja":
                     {
                         try
                         {
                             imgOutput = imgInput.Convert<Gray, byte>().InRange(new Gray(20), new Gray(200)).Canny(10, 50);
 
-                           // picture.Image = imgOutput.Bitmap;
                             picture.Invalidate();
 
                             Obraz wynikowy2 = new Obraz();
@@ -479,7 +453,7 @@ namespace SystemyWizyjne
                     }
                     break;
                 ///////////////////////////////////////////Erozja////////////////////////////////////
-                case "Erozja - działa":
+                case "Erozja":
                     {
                         if (imgInput==null)
                         {
@@ -496,7 +470,7 @@ namespace SystemyWizyjne
                         wynikowy3.Show();
                     }break;
                 ///////////////////////////////////////////Dylatacja////////////////////////////////////
-                case "Dylatacja - działa":
+                case "Dylatacja":
                     {
                         if (imgInput == null)
                         {
@@ -532,7 +506,7 @@ namespace SystemyWizyjne
                         //binaryzacja
                         imgBinarize = new Image<Gray, byte>(imgGray.Width, imgGray.Height, new Gray(0));
                         CvInvoke.Threshold(imgGray, imgBinarize, 70, 255, Emgu.CV.CvEnum.ThresholdType.Binary);
-                       // picture.Image = imgBinarize.Bitmap;
+                      
                     }
                     Obraz wynik = new Obraz();
                     wynik.richTextBox1.Visible = false;
@@ -546,7 +520,7 @@ namespace SystemyWizyjne
 
                     break;
                 /////////////////////////////////////////OCR - Tesseract/////////////////////////////
-                case "OCR - działa":
+                case "OCR":
 
                     wynik = new Obraz();
                     Bitmap img = (Bitmap)zrodlo.Clone();
@@ -558,7 +532,7 @@ namespace SystemyWizyjne
                     
                     break;
                 /////////////////////////////////////////////Klasyfikator cech - DetectFaceHaar - ///////////////////////
-                case "Klasyfikator cech - działa":
+                case "Klasyfikator cech":
                     {
                         try
                         {
