@@ -131,7 +131,17 @@ namespace SystemyWizyjne
                         return;
                     }
                     //Pobierz wartosc wszystkich punktow obrazu
-                    Bitmap bitmap = (Bitmap)picture.Image;
+
+                    Obraz wynikowy6 = new Obraz();
+                    wynikowy6.richTextBox1.Visible = false;
+                    wynikowy6.obrazWynikowy.Visible = true;
+                    wynikowy6.obrazWynikowy.Image = picture.Image;
+                    wynikowy6.Height = picture.Image.Height;
+                    wynikowy6.Width = picture.Image.Width;
+                    wynikowy6.obrazWynikowy.Height = picture.Image.Height;
+                    wynikowy6.obrazWynikowy.Width = picture.Image.Width;
+                    wynikowy6.Show();
+                    Bitmap bitmap = (Bitmap)wynikowy6.obrazWynikowy.Image;
 
                     BitmapData bmpData = bitmap.LockBits(new Rectangle(0, 0, picture.Width, picture.Height), ImageLockMode.ReadWrite, bitmap.PixelFormat);
                     byte[] pixelValues = new byte[Math.Abs(bmpData.Stride) * picture.Height];
@@ -146,7 +156,7 @@ namespace SystemyWizyjne
                     //Wczytaj przetworzony obraz
                     System.Runtime.InteropServices.Marshal.Copy(pixelValues, 0, bmpData.Scan0, pixelValues.Length);
                     bitmap.UnlockBits(bmpData);
-                    picture.Refresh();
+                    //picture.Refresh();
                     break;
                 ///////////////////////////////////////////////////////jasnosc////////////////////////
                 case "Zmiana jasności - działa":
@@ -231,7 +241,16 @@ namespace SystemyWizyjne
                     }
 
                     //Pobierz wartosc wszystkich punktow obrazu
-                    Bitmap bitmapKs = (Bitmap)picture.Image;
+                    Obraz wynikowy = new Obraz();
+                    wynikowy.richTextBox1.Visible = false;
+                    wynikowy.obrazWynikowy.Visible = true;
+                    wynikowy.obrazWynikowy.Image = picture.Image;
+                    wynikowy.Height = picture.Image.Height;
+                    wynikowy.Width = picture.Image.Width;
+                    wynikowy.obrazWynikowy.Height = picture.Image.Height;
+                    wynikowy.obrazWynikowy.Width = picture.Image.Width;
+                    wynikowy.Show();
+                    Bitmap bitmapKs = (Bitmap)wynikowy.obrazWynikowy.Image;
                     BitmapData bmpDataKs = bitmapKs.LockBits(new Rectangle(0, 0, picture.Width, picture.Height), ImageLockMode.ReadWrite, bitmapKs.PixelFormat);
                     byte[] pixelValuesKs = new byte[Math.Abs(bmpDataKs.Stride) * picture.Height];
                     System.Runtime.InteropServices.Marshal.Copy(bmpDataKs.Scan0, pixelValuesKs, 0, pixelValuesKs.Length);
@@ -251,7 +270,7 @@ namespace SystemyWizyjne
                     //Wczytaj przetworzony obraz
                     System.Runtime.InteropServices.Marshal.Copy(pixelValuesKs, 0, bmpDataKs.Scan0, pixelValuesKs.Length);
                     bitmapKs.UnlockBits(bmpDataKs);
-                    picture.Refresh();
+                    wynikowy.obrazWynikowy.Refresh();
 
                     break;
                 ///////////////////////////////////normalizacja histogramu//////////////////////
@@ -264,6 +283,8 @@ namespace SystemyWizyjne
                     int[] blue = null;
                     this.chart.Visible = true;
                     this.process.Visible = true;
+
+                    Obraz obraz = new Obraz();
                     //Oblicz histogram
 
 
@@ -322,7 +343,16 @@ namespace SystemyWizyjne
                             blue[newPixel.B]++;
                         }
                     }
-                    picture.Image = newBitmap;
+                    //picture.Image = newBitmap;
+
+                    obraz.richTextBox1.Visible = false;
+                    obraz.obrazWynikowy.Visible = true;
+                    obraz.obrazWynikowy.Image = newBitmap;
+                    obraz.Height = picture.Image.Height;
+                    obraz.Width = picture.Image.Width;
+                    obraz.obrazWynikowy.Height = picture.Image.Height;
+                    obraz.obrazWynikowy.Width = picture.Image.Width;
+                    obraz.Show();
 
                     //Wyswietl histogram na wykresie
                     chart.Series["red"].Points.Clear();
@@ -409,7 +439,17 @@ namespace SystemyWizyjne
                         CvInvoke.FindContours(imgOutput, contours, hier, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
                         CvInvoke.DrawContours(imgout, contours, -1, new MCvScalar(255, 0, 0));
 
-                        picture.Image = imgout.Bitmap;
+                       // picture.Image = imgout.Bitmap;
+
+                        Obraz wynikowy1 = new Obraz();
+                        wynikowy1.richTextBox1.Visible = false;
+                        wynikowy1.obrazWynikowy.Visible = true;
+                        wynikowy1.obrazWynikowy.Image = imgout.Bitmap;
+                        wynikowy1.Height = picture.Image.Height;
+                        wynikowy1.Width = picture.Image.Width;
+                        wynikowy1.obrazWynikowy.Height = picture.Image.Height;
+                        wynikowy1.obrazWynikowy.Width = picture.Image.Width;
+                        wynikowy1.Show();
                     }
                     break;
                 /////////////////////////////////////////// Segmentacja/////////////////////////////////////////
@@ -422,15 +462,15 @@ namespace SystemyWizyjne
                            // picture.Image = imgOutput.Bitmap;
                             picture.Invalidate();
 
-                            Obraz wynikowy = new Obraz();
-                            wynikowy.richTextBox1.Visible = false;
-                            wynikowy.obrazWynikowy.Visible = true;
-                            wynikowy.obrazWynikowy.Image = imgOutput.Bitmap;
-                            wynikowy.Height = picture.Image.Height;
-                            wynikowy.Width = picture.Image.Width;
-                            wynikowy.obrazWynikowy.Height = picture.Image.Height;
-                            wynikowy.obrazWynikowy.Width = picture.Image.Width;
-                            wynikowy.Show();
+                            Obraz wynikowy2 = new Obraz();
+                            wynikowy2.richTextBox1.Visible = false;
+                            wynikowy2.obrazWynikowy.Visible = true;
+                            wynikowy2.obrazWynikowy.Image = imgOutput.Bitmap;
+                            wynikowy2.Height = picture.Image.Height;
+                            wynikowy2.Width = picture.Image.Width;
+                            wynikowy2.obrazWynikowy.Height = picture.Image.Height;
+                            wynikowy2.obrazWynikowy.Width = picture.Image.Width;
+                            wynikowy2.Show();
                         }
                         catch (Exception ex)
                         {
@@ -445,15 +485,15 @@ namespace SystemyWizyjne
                         {
                             return;
                         }
-                        Obraz wynikowy = new Obraz();
-                        wynikowy.richTextBox1.Visible = false;
-                        wynikowy.obrazWynikowy.Visible = true;
-                        wynikowy.obrazWynikowy.Image = imgInput.Convert<Gray, byte>().ThresholdBinary(new Gray(120), new Gray(255)).Erode(1).Bitmap;
-                        wynikowy.Height = picture.Image.Height;
-                        wynikowy.Width = picture.Image.Width;
-                        wynikowy.obrazWynikowy.Height = picture.Image.Height;
-                        wynikowy.obrazWynikowy.Width = picture.Image.Width;
-                        wynikowy.Show();
+                        Obraz wynikowy3 = new Obraz();
+                        wynikowy3.richTextBox1.Visible = false;
+                        wynikowy3.obrazWynikowy.Visible = true;
+                        wynikowy3.obrazWynikowy.Image = imgInput.Convert<Gray, byte>().ThresholdBinary(new Gray(120), new Gray(255)).Erode(1).Bitmap;
+                        wynikowy3.Height = picture.Image.Height;
+                        wynikowy3.Width = picture.Image.Width;
+                        wynikowy3.obrazWynikowy.Height = picture.Image.Height;
+                        wynikowy3.obrazWynikowy.Width = picture.Image.Width;
+                        wynikowy3.Show();
                     }break;
                 ///////////////////////////////////////////Dylatacja////////////////////////////////////
                 case "Dylatacja - działa":
@@ -464,15 +504,15 @@ namespace SystemyWizyjne
                         }
 
 
-                        Obraz wynikowy = new Obraz();
-                        wynikowy.richTextBox1.Visible = false;
-                        wynikowy.obrazWynikowy.Visible = true;
-                        wynikowy.obrazWynikowy.Image = imgInput.Convert<Gray, byte>().ThresholdBinary(new Gray(120), new Gray(255)).Dilate(1).Bitmap;
-                        wynikowy.Height = picture.Image.Height;
-                        wynikowy.Width = picture.Image.Width;
-                        wynikowy.obrazWynikowy.Height = picture.Image.Height;
-                        wynikowy.obrazWynikowy.Width = picture.Image.Width;
-                        wynikowy.Show();
+                        Obraz wynikowy4 = new Obraz();
+                        wynikowy4.richTextBox1.Visible = false;
+                        wynikowy4.obrazWynikowy.Visible = true;
+                        wynikowy4.obrazWynikowy.Image = imgInput.Convert<Gray, byte>().ThresholdBinary(new Gray(120), new Gray(255)).Dilate(1).Bitmap;
+                        wynikowy4.Height = picture.Image.Height;
+                        wynikowy4.Width = picture.Image.Width;
+                        wynikowy4.obrazWynikowy.Height = picture.Image.Height;
+                        wynikowy4.obrazWynikowy.Width = picture.Image.Width;
+                        wynikowy4.Show();
                     }
                     break;
                 //////////////////////////////////////////Progowanie/////////////////////////////////
@@ -545,15 +585,15 @@ namespace SystemyWizyjne
                                     imgInput.Draw(ey, new Bgr(0, 255, 0), 2);
                                 }
                             }
-                            Obraz wynikowy = new Obraz();
-                            wynikowy.richTextBox1.Visible = false;
-                            wynikowy.obrazWynikowy.Visible = true;
-                            wynikowy.obrazWynikowy.Image = imgInput.Bitmap;
-                            wynikowy.Height = picture.Image.Height;
-                            wynikowy.Width = picture.Image.Width;
-                            wynikowy.obrazWynikowy.Height = picture.Image.Height;
-                            wynikowy.obrazWynikowy.Width = picture.Image.Width;
-                            wynikowy.Show();
+                            Obraz wynikowy5 = new Obraz();
+                            wynikowy5.richTextBox1.Visible = false;
+                            wynikowy5.obrazWynikowy.Visible = true;
+                            wynikowy5.obrazWynikowy.Image = imgInput.Bitmap;
+                            wynikowy5.Height = picture.Image.Height;
+                            wynikowy5.Width = picture.Image.Width;
+                            wynikowy5.obrazWynikowy.Height = picture.Image.Height;
+                            wynikowy5.obrazWynikowy.Width = picture.Image.Width;
+                            wynikowy5.Show();
                         }
                         catch (Exception ex)
                         {
